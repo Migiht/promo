@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой комплекс серверов для bratishkinoff</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Minecraft&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --secondary: #3498db;
+            --dark: #2c3e50;
+            --darker: #1a252f;
+            --light: #ecf0f1;
+            --accent: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .minecraft-font {
+            font-family: 'Minecraft', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            padding: 60px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://preview.redd.it/e0qa1ywequt71.jpg?width=640&crop=smart&auto=webp&s=ae2893f11823d11501c8b7e9e9fa6e056b752cdd') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--light);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-image {
+            margin-top: 40px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(44, 62, 80, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            background: rgba(44, 62, 80, 0.9);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .architecture {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.redd.it/774ap6k09vt71.jpg') center/cover no-repeat;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .architecture-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .diagram-container {
+            margin-top: 50px;
+            background: rgba(26, 37, 47, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .server-node {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .node-icon {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+
+        .node-content h3 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .scaling {
+            text-align: center;
+        }
+
+        .scaling-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .step {
+            background: rgba(44, 62, 80, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: scale(1.05);
+            background: rgba(44, 62, 80, 0.9);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .benefits {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+        }
+
+        .benefits-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(10px);
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+
+        .player-experience {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .experience-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(44, 62, 80, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .experience-card {
+            background: rgba(26, 37, 47, 0.5);
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .experience-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: var(--dark);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--primary);
+        }
+
+        /* Architecture Choice Styles */
+        .architecture-choice {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .choice-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: rgba(44, 62, 80, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .choice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--secondary);
+        }
+
+        .choice-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .choice-features {
+            margin-top: 20px;
+        }
+
+        .choice-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .choice-feature i {
+            color: var(--primary);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .recommended-badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid, .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scaling-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .choice-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-content">
+        <h1 class="minecraft-font animate">Игровой комплекс серверов для bratishkinoff</h1>
+        <p class="subtitle animate delay-1">Профессиональное решение для массового мультиплеера</p>
+        <p class="animate delay-2">Выберите оптимальную архитектуру для ваших нужд</p>
+        <div class="hero-image animate delay-4">
+            <i class="fas fa-server" style="font-size: 8rem; color: var(--primary);"></i>
+        </div>
+    </div>
+</header>
+
+<section id="overview">
+    <div class="container">
+        <h2 class="section-title animate">Две мощные архитектуры на выбор</h2>
+        <p class="animate delay-1" style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Мы предлагаем два профессиональных решения для Minecraft сервера, каждое с уникальными преимуществами. Выберите то, что лучше соответствует вашим целям и ожидаемому количеству игроков.
+        </p>
+
+        <div class="architecture-choice">
+            <div class="choice-card animate delay-2">
+                <div class="recommended-badge">Оптимальный выбор</div>
+                <h3 class="choice-title">Моносерверная архитектура</h3>
+                <p>Один мощный сервер с экстремальной оптимизацией для 5,000+ игроков</p>
+                
+                <div class="choice-features">
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Высокая производительность</strong>
+                            <p>Многоядерный сервер с выделенными потоками для разных систем игры</p>
+                        </div>
+                    </div>
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Простота управления</strong>
+                            <p>Один сервер - меньше сложностей с синхронизацией и настройкой</p>
+                        </div>
+                    </div>
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Единый мир</strong>
+                            <p>Все игроки находятся в одном игровом пространстве без разделения</p>
+                        </div>
+                    </div>
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Оптимизация под 5,000 игроков</strong>
+                            <p>Специальные решения для уменьшения нагрузки при большом онлайне</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="choice-card animate delay-3">
+                <h3 class="choice-title">Кластерная архитектура</h3>
+                <p>Бесшовная сеть серверов с практически неограниченной вместимостью</p>
+                
+                <div class="choice-features">
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Бесшовный переход</strong>
+                            <p>Игроки перемещаются между серверами без перезахода</p>
+                        </div>
+                    </div>
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Неограниченный онлайн</strong>
+                            <p>Добавляйте новые серверы по мере роста количества игроков</p>
+                        </div>
+                    </div>
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Отказоустойчивость</strong>
+                            <p>Если один сервер упадет, остальные продолжат работать</p>
+                        </div>
+                    </div>
+                    <div class="choice-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Геораспределение</strong>
+                            <p>Возможность размещать серверы в разных регионах для лучшего пинга</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="architecture" id="architecture">
+    <div class="container architecture-content">
+        <h2 class="section-title animate">Технические детали</h2>
+
+        <div class="features-grid">
+            <div class="feature-card animate delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="feature-title">Моносерверная конфигурация</h3>
+                <ul style="padding-left: 20px;">
+                    <li>128 ядер CPU</li>
+                    <li>256 ГБ RAM</li>
+                    <li>NVMe SSD RAID 10</li>
+                    <li>10 Gbps сеть</li>
+                    <li>Выделенный DDoS-фильтр</li>
+                </ul>
+            </div>
+
+            <div class="feature-card animate delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="feature-title">Кластерная конфигурация</h3>
+                <ul style="padding-left: 20px;">
+                    <li>От 16 ядер на сервер</li>
+                    <li>От 32 ГБ RAM на сервер</li>
+                    <li>Автомасштабируемый кластер</li>
+                    <li>Балансировщик нагрузки</li>
+                    <li>Распределенное хранилище</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="player-experience">
+    <div class="container">
+        <h2 class="section-title animate">Что получат игроки</h2>
+        <p class="animate delay-1" style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Независимо от выбранной архитектуры, игроки получат беспрецедентный игровой опыт
+        </p>
+
+        <div class="experience-grid">
+            <div class="experience-card animate delay-2">
+                <div class="experience-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Стабильный TPS 20</h3>
+                <p>Даже при максимальной нагрузке сервер работает без лагов</p>
+            </div>
+
+            <div class="experience-card animate delay-3">
+                <div class="experience-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Массовые ивенты</h3>
+                <p>Возможность проводить мероприятия для тысяч игроков одновременно</p>
+            </div>
+
+            <div class="experience-card animate delay-4">
+                <div class="experience-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Единое пространство</h3>
+                <p>Все игроки взаимодействуют в рамках одного игрового мира</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="benefits" id="benefits">
+    <div class="container">
+        <h2 class="section-title animate">Преимущества нашего решения</h2>
+
+        <div class="benefits-list">
+            <div class="benefit-item animate delay-1">
+                <div class="benefit-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div>
+                    <h3>Экстремальная производительность</h3>
+                    <p>Специальные оптимизации ядра Minecraft для работы с тысячами игроков.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item animate delay-2">
+                <div class="benefit-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <div>
+                    <h3>Бесшовная синхронизация</h3>
+                    <p>В кластерной архитектуре игроки не замечают переход между серверами.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item animate delay-3">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h3>Защита от перегрузок</h3>
+                    <p>Система автоматически ограничивает нагрузочные механизмы при необходимости.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item animate delay-4">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div>
+                    <h3>Полная поддержка</h3>
+                    <p>Наша команда обеспечивает круглосуточный мониторинг и оперативное решение проблем.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <a href="#" class="footer-link">Условия использования</a>
+            <a href="#" class="footer-link">Поддержка</a>
+        </div>
+        <p>&copy; 2023 Решения для серверов Minecraft. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const animateElements = document.querySelectorAll('.animate');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(element => {
+            element.style.opacity = 0;
+            observer.observe(element);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
